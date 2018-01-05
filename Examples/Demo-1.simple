@@ -1,0 +1,12 @@
+Create an Integer, variable1, with a starting value of 10.
+Create a Float, variable2, with a starting value of 0.5.
+
+Set variable variable1 to 12*variable1.
+Print the value of variable1 to the console.
+
+Create a Boolean, dummy_boolean, with a starting value of True.
+Print the value of dummy_boolean to the console.
+
+Create a Float, DUMMY_float, with a starting value of 1.25.
+Set variable DUMMY_float to DUMMY_float + variable1+variable2^2
+Print the value of DUMMY_float to the console.
