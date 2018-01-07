@@ -8,5 +8,5 @@ Extremely WIP.
 - Game scenes ("Create a window with a width of x and a height of y")
 - Events ("When this key is pressed..." "When sprite is clicked")
 - Sprites and sprite movement. ("Create a sprite, sprite, at x, y" "Set the texture of sprite to texture" "Move sprite to x,y"
-- Strings and characters
+- Characters (one-letter strings)
 - Arrays
