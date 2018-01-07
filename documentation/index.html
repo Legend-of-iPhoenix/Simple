@@ -1,9 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Simple Documentation</title>
-</head>
-<body>
-	<h1>Simple Documentation.</h1><p>This is where you can find documentation on the "sentences" used by Simple.</p><p>These are just like commands in other languages.</p><p>&nbsp;</p><ul><li><span style="background-color: #bbbbbb;">Create a(n) [Integer|Boolean|Float], [variable name], with a starting value of [value].</span><br /><ul><li>This creates a variable, <span style="background-color: #bbbbbb;">[variable name]</span>, which is a Boolean (True or False), Integer (whole numbers only), or Float (number with decimals). The value of the variable is in&nbsp;<span style="background-color: #bbbbbb;">[value]</span>, which must be a value of the same type as the variable itself. (i.e. "True" if the variable is a Boolean, 5 if the variable is an Integer, or 5.5 if the variable is a Float.)</li><li><span style="background-color: #bbbbbb;">[value]</span> cannot be an expression. It must be a definite value.</li></ul></li><li><span style="background-color: #bbbbbb;">Set variable [variable] to [value].</span><ul><li>Sets the value stored in <span style="background-color: #bbbbbb;">[variable]</span> to <span style="background-color: #bbbbbb;">[value]</span>.</li><li>This can be an expression that uses other variables and performs calculations.</li></ul></li><li><span style="background-color: #bbbbbb;"><span style="background-color: #bbbbbb;">Print the value of [variable] to the console.</span></span><ul><li>Does exactly what it says on the tin. It prints the value stored in <span style="background-color: #bbbbbb;">[variable]</span> to the console.</li></ul></li><li><span style="background-color: #bbbbbb;">Increment the value of [variable].</span><ul><li>Adds one to the value of <span style="background-color: #bbbbbb;">[variable]</span>.</li></ul></li><li><span style="background-color: #bbbbbb;">Decrement the value of [variable].</span><ul><li>Subtracts one from the value of <span style="background-color: #bbbbbb;">[variable]</span>.</li></ul></li></ul>
-</body>
+  <head>
+    <title>Simple Documentation</title>
+    <style>
+    	* {
+    		font-family: "Trebuchet MS", Helvetica, sans-serif;
+    		font-size: 15px;
+    	}
+    	h1 {
+    		font-size: 30px;
+    	}
+    	body {
+    		background-color: #eee;
+    	}
+    	.code {
+    		background-color: #bbb;
+    		font-family: "Lucida Console", Monaco, monospace;
+    		font-size: 15px;
+    	}
+    	li {
+    		width: 75%;
+    		margin-top: 20px;
+    		margin-bottom: 20px;
+    	}
+    	li ul li {
+    		color: #111;
+    		margin-top: 5px;
+    		margin-bottom: 5px;
+    	}
+    	ul {
+    		margin-top: 10px;
+    		margin-bottom: 10px;
+    	}
+
+    </style>
+  </head>
+  <body>
+    <h1>Simple Documentation.</h1>
+    <p>This is where you can find documentation on the "sentences" used by Simple.</p>
+    <p>These are just like commands in other languages.</p>
+    <br />
+    <ul>
+      <li>
+        <span class="code">Create a(n) [Integer|Boolean|Float|String], [variable name], with a starting value of [value].</span><br />
+        <ul>
+          <li>This creates a variable, <span class="code">[variable name]</span>, which is a Boolean (True or False), Integer (whole numbers only), String (a list of characters/text), or Float (number with decimals). The value of the variable is in&nbsp;<span class="code">[value]</span>, which must be a value of the same type as the variable itself. (i.e. True if the variable is a Boolean, 5 if the variable is an Integer, "Hello" if the variable is a String, or 5.5 if the variable is a Float.)</li>
+          <li><span class="code">[value]</span> cannot be an expression. It must be a definite value.</li>
+        </ul>
+      </li>
+      <li>
+        <span class="code">Set variable [variable] to [value].</span>
+        <ul>
+          <li>Sets the value stored in <span class="code">[variable]</span> to <span class="code">[value]</span>.</li>
+          <li>This can be an expression that uses other variables and performs calculations.</li>
+        </ul>
+      </li>
+      <li>
+        <span class="code"><span class="code">Print the value of [variable] to the console.</span></span>
+        <ul>
+          <li>Does exactly what it says on the tin. It prints the value stored in <span class="code">[variable]</span> to the console.</li>
+        </ul>
+      </li>
+      <li>
+        <span class="code">Increment the value of [variable].</span>
+        <ul>
+          <li>Adds one to the value of <span class="code">[variable]</span>.</li>
+        </ul>
+      </li>
+      <li>
+        <span class="code">Decrement the value of [variable].</span>
+        <ul>
+          <li>Subtracts one from the value of <span class="code">[variable]</span>.</li>
+        </ul>
+      </li>
+      <li>
+      	<span class="code">Alert the user with the value of [variable].</span>
+      	<ul>
+      		<li>Sends an alert to the user with the contents of <span class="code">[variable]</span>.</li>
+      	</ul>
+      </li>
+    </ul>
+  </body>
 </html>
