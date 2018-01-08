@@ -6,7 +6,19 @@ var untilLoopComparisons = [];
 var cycles = 0;
 var cycleLimit = 500;
 
+var examples = {
+  "Triangle": "//Change this to alter the size of your triangle:\nCreate an Integer, n, with a starting value of 10.\n\nCreate an Integer, i, with a starting value of 0.\nCreate an Integer, j, with a starting value of 0.\nCreate a String, printTriangle, with a starting value of \" \".\n\nUntil i >= (n-1):\n- Increment the value of i.\n- Append the character ' ' to the string stored in printTriangle.\n\nSet variable i to 0.\n\nUntil i >= (n-1):\n- Increment the value of i.\n- Set variable j to j+i.\n- Remove the character at position 1 of the string stored in printTriangle.\n- Append the character '%' to the string stored in printTriangle.\n- Append the character '%' to the string stored in printTriangle.\n- Print the value of printTriangle to the console.\n\nPrint the value of j to the console.\n\n#\nThe output, when n is 10, should look like this:\n(Note that the number of percent signs shown by this program is twice the number shown on the bottom, because I wanted it to be symmetric.)\n\n         %%\n        %%%%\n       %%%%%%\n      %%%%%%%%\n     %%%%%%%%%%\n    %%%%%%%%%%%%\n   %%%%%%%%%%%%%%\n  %%%%%%%%%%%%%%%%\n %%%%%%%%%%%%%%%%%%\n45\n#",
+  "Demo-1": "Create an Integer, variable1, with a starting value of 10.\nCreate a Float, variable2, with a starting value of 0.5.\n\nSet variable variable1 to 12*variable1.\nPrint the value of variable1 to the console.\n\nCreate a Boolean, dummy_boolean, with a starting value of True.\nPrint the value of dummy_boolean to the console.\n\nCreate a Float, DUMMY_float, with a starting value of 1.25.\nSet variable DUMMY_float to DUMMY_float + variable1+variable2^2\nPrint the value of DUMMY_float to the console.",
+  "Demo-2": "Create an Integer, variable1, with a starting value of 10.\nCreate an Integer, variable2, with a starting value of 0.\n\nPrint the value of variable1 to the console.\nIncrement the value of variable1.\nPrint the value of variable1 to the console.\nIncrement the value of variable2.\nIncrement the value of variable2.\n\nCreate a Float, hello, with a starting value of 0.\nSet variable hello to 1+variable1/variable2.\n\nPrint the value of hello to the console.\n\nDecrement the value of variable2.\nSet variable hello to 1+variable1/variable2.\n\nPrint the value of hello to the console.",
+  "HelloWorld": "Create a String, h, with a starting value of \"Hello, World!\".\nAlert the user with the value of h."
+}
+
 window.onload = function() {
+  var reg = new RegExp( '[?&]example=([^&#]*)', 'i' );
+  var string = reg.exec(window.location.href);
+  if (string) {
+    if (examples[string[1]])
+  }
   var codeTerminal = document.getElementById("codeTerminal")
   var lineNumbers = document.getElementById("lineNumbers")
   codeTerminal.onkeyup = function(event) {
