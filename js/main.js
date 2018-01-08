@@ -18,7 +18,7 @@ window.onload = function() {
   var string = reg.exec(window.location.href);
   if (string) {
     if (examples[string[1]]) {
-      document.getElementById("codeTerminal").innerHTML = string;
+      document.getElementById("codeTerminal").innerHTML = examples[string[1]];
     }
   }
   var codeTerminal = document.getElementById("codeTerminal")
