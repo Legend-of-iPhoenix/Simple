@@ -17,7 +17,9 @@ window.onload = function() {
   var reg = new RegExp( '[?&]example=([^&#]*)', 'i' );
   var string = reg.exec(window.location.href);
   if (string) {
-    if (examples[string[1]])
+    if (examples[string[1]]) {
+      document.getElementById("codeTerminal").innerHTML = string;
+    }
   }
   var codeTerminal = document.getElementById("codeTerminal")
   var lineNumbers = document.getElementById("lineNumbers")
