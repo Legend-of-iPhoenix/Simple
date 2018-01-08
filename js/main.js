@@ -41,11 +41,6 @@ window.onload = function() {
   codeTerminal.onscroll = function(event) {
     lineNumbers.scrollTop = codeTerminal.scrollTop;
   }
-
-  var codeTerminalButton = document.createElement("button");
-  codeTerminalButton.setAttribute("onclick", "interpretCode()");
-
-  document.getElementsByTagName("BODY")[0].appendChild(codeTerminalButton);
 }
 
 function Variable(name, type, value) {
