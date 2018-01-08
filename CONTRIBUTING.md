@@ -1,7 +1,7 @@
-<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;"># UniChat
+# Simple
 
 ## To start contributing:
-Press the fork button. You now have your own copy of UniChat, where you can test things out before committing.
+Press the fork button. You now have your own copy of this repository, where you can test things out before committing.
 When you are done, create a pull request with your changes.
 
 **IT IS YOUR RESPONSIBILITY TO KEEP YOUR LOCAL REPOSITORY UP TO DATE WITH THE OFFICIAL ONE**
@@ -11,6 +11,3 @@ When you are done, create a pull request with your changes.
 - Describe what it does (and optionally how it does what it does)
 - Be patient. We might want to check your changes to make sure they work as-hyped, and we might even add commits of our own to improve what you have.
 - It saves us a lot of time if you set up (free) github pages for your repository, and link it in your pull request.
-- We do not accept contributions that are inappropriate or give benefits to a  UniChat user. In the latter scenerio, please create an issue.
-- If your contribution is accepted, you will be granted the contributor title on UniChat. Please include your UniChat username in your pull request so I (_iPhoenix_) can grant you the title.
-</pre></body></html>
