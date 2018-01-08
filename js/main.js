@@ -56,6 +56,13 @@ window.onload = function() {
   codeTerminal.onscroll = function(event) {
     lineNumbers.scrollTop = codeTerminal.scrollTop;
   }
+  var row_number = 0;
+    lineNumbers.innerHTML = "";
+    codeTerminal.value.split("\n").forEach(function(row) {
+      row_number++;
+      lineNumbers.innerHTML += row_number + "\n";
+    });
+    lineNumbers.cols = Math.floor(1 + Math.log10(row_number));
 }
 
 function Variable(name, type, value) {
