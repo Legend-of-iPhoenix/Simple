@@ -1,7 +1,7 @@
 # Simple
 A programming language that uses commands in simple english.
 
-Extremely WIP.
+Extremely WIP. [(I also need a new name.)](https://bit.ly/new-language-name-needed)
 
 #### Plans (in no particular order)
 - If/Until/While (until is the opposite of while, like "Until this condition is met" instead of "while this condition has not been met")
