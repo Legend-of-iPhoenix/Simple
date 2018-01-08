@@ -1,9 +1,10 @@
 var variables = [];
 var variableNameIndex = [];
 var currentProgramName = "";
-var untilLoopVariables = [];
-var untilLoopConstants = [];
+var untilLoopLineNumbers = [];
 var untilLoopComparisons = [];
+var cycles = 0;
+var cycleLimit = 500;
 
 window.onload = function() {
   var codeTerminal = document.getElementById("codeTerminal")
@@ -93,19 +94,46 @@ function log(message, hint, documentation, status) {
 function interpretCode() {
   variableNameIndex = [];
   variables = [];
-  var code = document.getElementById("codeTerminal").value.split("\n")
+  untilLoopLineNumbers = [];
+  untilLoopComparisons = [];
 
-  function throwSyntax(line, variableType) {
-    log("Syntax Error on line " + line + "!", "Change line " + line + ' to be "Create ' + ("aeiou".indexOf(variableType.toLowerCase().substring(0, 1)) ? "an" : "a") + " " + variableType + ", [variable name], with a starting value of [starting value]. (replace [variable name] with the name you want your variable to be, and [starting value] to what you want your variable's starting value to be.)", "https://google.com", "ERROR");
-  }
-  line_number = 0;
-  code.forEach(function(line) {
-    line_number++
-    line = line.trim();
+  var code = document.getElementById("codeTerminal").value.replace(/\#[^\#]*\#/gm, ""); code = code.split("\n");
+  var line_number = 0;
+  cycles = 0;
+  //console.log(code);
+  while ((line_number < code.length) && (cycles < cycleLimit)) {
+    cycles++;
+    var line = code[line_number].trim();
+    line_number++;
+    //console.log("=========\nCycle #"+cycles+". Line of code to be executed: "+line+"\n=========");
+    if (line.startsWith("- ") || ((line_number - 2 >= 0) ? code[line_number - 2].startsWith("- ") : false)) {
+      var index = 0;
+      if (line.startsWith("- "))
+        index = (line.match(/((?:- )+)/)[0].length/2);
+      //console.log("Until loop index #"+index);
+      if (untilLoopComparisons.length > index || line_number == code.length) {
+        //console.log(untilLoopComparisons[untilLoopComparisons.length - 1] +" evaluates to "+parseExpression(untilLoopComparisons[untilLoopComparisons.length - 1]));
+        if (parseExpression(untilLoopComparisons[untilLoopComparisons.length - 1]) === true) {
+          untilLoopComparisons.pop();
+          untilLoopLineNumbers.pop();
+          //console.log("Until loop #"+index+" has finished executing.");
+        }
+        else {
+          index = index == 0 ? 1 : index;
+          line_number = untilLoopLineNumbers[untilLoopLineNumbers.length - 1];
+          line = code[line_number-1].substring(2*index).trim();
+          //console.log("Executing line #"+line_number+": "+line);
+        }
+      }
+      else {
+        line = line.substring(2*index).trim();
+        //console.log("Executing line #"+line_number+": "+line);
+      }
+    }
     if (line.startsWith("Create a")) {
       var data = line.substring(9).trim();
       if (data.startsWith("Integer, ")) {
-        data = data.substring(9)
+        data = data.substring(9);
         var variable_name = data.match(/([a-zA-Z]\w*)/)[1]
         if (variableNameIndex.indexOf(variable_name) == -1) {
           data = data.substring(variable_name.length + 1).trim()
@@ -165,6 +193,7 @@ function interpretCode() {
       var data = line.substring(3).trim();
     }
     if (line.startsWith("Increment the value of ")) {
+      //console.log("Increment command triggered.");
       var data = line.substring(23).trim();
       var variable_name = data.match(/([a-zA-Z]\w*)/)[1];
       data = data.substring(variable_name.length).trim()
@@ -179,32 +208,31 @@ function interpretCode() {
       data = data.substring(variable_name.length).trim();
       var index = variableNameIndex.indexOf(variable_name);
       if (index != -1) {
-        variables[index].value--
+        variables[index].value--;
       }
     }
-    //unimplemented
-    if (line.startsWith("Until the value of ")) {
-      var data = line.substring(19).trim();
-      var variable_name = data.match(/([a-zA-Z]\w*)/)[1];
-      data = data.substring(variable_name.length).trim()
-      var index = variableNameIndex.indexOf(variable_name);
-      if (index != -1) {
-        untilLoopVariables.push(variables[index]);
-        if (data.startsWith("is equal to")) {
-
-        }
-      }
-
+    if (line.startsWith("Until ")) {
+      var data = line.substring(6).trim();
+      var expression = data.match(/([^:]*)\:/)[1];
+      data = data.substring(expression.length).trim();
+      untilLoopComparisons.push(expression);
+      untilLoopLineNumbers.push(line_number + 1);
+      //console.log("line numbers: "+untilLoopLineNumbers);
+      //console.log("comparisons: "+untilLoopComparisons);
     }
     if (line.startsWith("Set variable ")) {
+      //console.log("Set command triggered.");
       var data = line.substring(12).trim();
-      var variable_name = data.match(/([a-zA-Z]\w*)/)[1];
-      data = data.substring(variable_name.length).trim()
+      var variable_name = data.match(/([a-zA-Z]\w*)/g)[0];
+      //console.log("Variable: "+variable_name+".");
+      data = data.substring(variable_name.length).trim();
       var index = variableNameIndex.indexOf(variable_name);
       if (index != -1) {
         if (data.startsWith("to ")) {
           data = data.substring(3);
+          data = data.substring(0, data.length-1);
           variables[index].value = parseExpression(data);
+          //console.log(variable_name+" = "+variables[index].value);
           variables[index].validate();
         }
       }
@@ -221,44 +249,103 @@ function interpretCode() {
       }
     }
     if (line.startsWith("Alert the user with the value of ")) {
-    	var data = line.substring(33).trim();
-    	var variable_name = data.match(/([a-zA-Z]\w*)/)[1];
+      var data = line.substring(33).trim();
+      var variable_name = data.match(/([a-zA-Z]\w*)/)[1];
       data = data.substring(variable_name.length).trim();
       var index = variableNameIndex.indexOf(variable_name);
       if (index != -1) {
         alert(variables[index].value);
       }
     }
-  });
+    if (line.startsWith("Append the character '")) {
+      var data = line.substring(22);
+      var character = data.substring(0,1);
+      data = data.substring(3).trim();
+      if (data.startsWith("to the string stored in")) {
+        data = data.substring(23).trim();
+        var variable_name = data.match(/([a-zA-Z]\w*)/g)[0];
+        var index = variableNameIndex.indexOf(variable_name);
+        if (index != -1) {
+          if (variables[index].type == "string") {
+            variables[index].value += character;
+          }
+        }
+      }
+    }
+    if (line.startsWith("Remove the character at position ")) {
+      var data = line.substring(33);
+      var data2 = data.match(/(?:(.*)?(?: of the string stored in)) ([A-Za-z]\w*)/);
+      var position = data2[1];
+      var variable_name = data2[2];
+      var index = variableNameIndex.indexOf(variable_name);
+      if (index != -1) {
+        if (variables[index].type == "string") {
+          position = parseExpression(position);
+          variables[index].value = variables[index].value.substring(0, position-1) + variables[index].value.slice(position);
+        }
+      }
+    }
+    if (line.startsWith("Prepend the character '")) {
+      var data = line.substring(23);
+      var character = data.substring(0,1);
+      data = data.substring(3).trim();
+      if (data.startsWith("to the string stored in")) {
+        data = data.substring(23).trim();
+        var variable_name = data.match(/([a-zA-Z]\w*)/g)[0];
+        var index = variableNameIndex.indexOf(variable_name);
+        if (index != -1) {
+          if (variables[index].type == "string") {
+            variables[index].value = character + variables[index].value;
+          }
+        }
+      }
+    }
+    if (line.startsWith("//") || line.startsWith("#")) {
+      //console.log("Comment Ignored");
+    }
+  }
+  if (cycles >= cycleLimit) {
+    console.error("Your operation took too long.")
+  }
 }
 
 function parseExpression(expression) {
-  /*var boolean_replace = [
-  	[" is equal to ", "=="],
-  	[" is not equal to ", "!="],
-  	[" is greater than or equal to ", ">="],
-  	[" is less than or equal to ", "<="],
-  	[" is greater than ", ">"],
-  	[" is less than ", "<"]
-  ]
+  expression = "("+expression+") + 0";
+  var boolean_replace = [
+    [" or ", " | "],
+    [" and ", " & "],
+    [" does not equal ", " ! "],
+    [" is not equal to ", " ! "],
+    ["<=", "@"],
+    [">=", "#"],
+    ["!=", "!"]
+  ];
   boolean_replace.forEach(function(replace_key) {
-  	expression = expression.replace(replace_key[0],replace_key[1]);
-  });*/
-
-  var matches = expression.match(/([a-zA-Z]\w*)/g);
-  matches.forEach(function(match) {
-    var index = variableNameIndex.indexOf(match);
-    if (index != -1) {
-      expression = expression.replace(match, variables[index].value);
-    }
+    expression = expression.replace(replace_key[0],replace_key[1]);
   });
-  //vv not my code.
+  //console.log(expression);
+  var matches = expression.match(/([a-zA-Z]\w*)/g);
+  if (matches) {
+    matches.forEach(function(match) {
+      var index = variableNameIndex.indexOf(match);
+      if (index != -1) {
+        expression = expression.replace(match, variables[index].value);
+        //console.log(match + " is equal to "+variables[index].value);
+      }
+    });
+  }
+  //vv partially my code.
   function toPostFix(expression) {
     var pfixString = "";
     var infixStack = [];
     infixStack[infixStack.length - 1]
     var precedence = function(operator) {
       switch (operator) {
+        //case "!":
+        //  return 5;
+        case "|":
+        case "&":
+          return 4;
         case "^":
           return 3;
         case "*":
@@ -267,17 +354,25 @@ function parseExpression(expression) {
         case "+":
         case "-":
           return 1;
+        case "=":
+        case ">":
+        case "<":
+        case "!":
+        case "@":
+        case "#":
+          return 0;
         default:
           return 0;
       }
     }
+    var operators = ["+","-","*","/","^","!","=","<",">","@","#","|","&"];
     for (var i = 0; i < expression.length; i++) {
       var c = expression.charAt(i);
       if (!isNaN(parseInt(c)) || c == ".") {
         pfixString += c;
-      } else if (c === "+" || c === "-" || c === "*" || c === "/" || c === "^") {
+      } else if (operators.indexOf(c) != -1) {
         pfixString += " ";
-        while (c != "^" && !(infixStack.length == 0) && (precedence(c) <= precedence(infixStack[infixStack.length - 1]))) {
+        while (c != "(" && !(infixStack.length == 0) && (precedence(c) <= precedence(infixStack[infixStack.length - 1]))) {
           pfixString += " " + infixStack.pop() + " ";
         }
         infixStack.push(c);
@@ -286,6 +381,7 @@ function parseExpression(expression) {
     while (!(infixStack.length == 0)) {
       pfixString += " " + infixStack.pop() + " ";
     }
+    pfixString = pfixString.replace(/ {2}/g, " ");
     pfixString = pfixString.replace(/ {2}/g, " ");
 
     return pfixString;
@@ -302,43 +398,68 @@ function parseExpression(expression) {
       if (!isNaN(token)) {
         stack.push(token);
       } else {
-        var b = parseFloat(stack.pop());
-        var a = parseFloat(stack.pop());
+        var b = stack.pop();
+        var a = stack.pop();
+        
         switch (token) {
           case "*":
-            stack.push(a * b);
+            stack.push(parseFloat(a) * parseFloat(b));
             break;
           case "/":
-            stack.push(a / b);
+            stack.push(parseFloat(a) / parseFloat(b));
             break;
           case "-":
-            stack.push(a - b);
+            stack.push(parseFloat(a) - parseFloat(b));
             break;
           case "+":
-            stack.push(a + b);
+            stack.push(parseFloat(a) + parseFloat(b));
             break;
           case "^":
-            stack.push(Math.pow(a, b));
+            stack.push(Math.pow(parseFloat(a), parseFloat(b)));
+            break;
+          case "!":
+            stack.push(a != b);
+            break;
+          case "&":
+            stack.push(a && b);
+            break;
+          case "=":
+            stack.push(a == b);
+            break;
+          case "|":
+            stack.push(a || b);
+            break;
+          case ">":
+            stack.push(parseFloat(a) > parseFloat(b));
+            break;
+          case "<":
+            stack.push(parseFloat(a) < parseFloat(b));
+            break;
+          case "@":
+            stack.push(parseFloat(a) <= parseFloat(b));
+            break;
+          case "#":
+            stack.push(parseFloat(a) >= parseFloat(b));
             break;
           default:
             break;
         }
       }
+      //console.log(token);
+      //console.log(stack);
     });
     if (stack.length == 1) {
       return stack[0];
     }
   }
+  //console.log(toPostFix(expression));
   return evaluate(toPostFix(expression));
 }
 
 function save() {
   var name = currentProgramName;
   var invalidNameEntered = true;
-  while (invalidNameEntered) {
-    name = prompt("Please enter a name for this program. \n\nAlphanumeric only.", name);
-    invalidNameEntered = !/[0-9a-zA-Z]*/.test(name) || !name;
-  }
+  name = prompt("Please enter a name for this program.", name);
   //vv not my code.
   function download(filename, text) {
     var pom = document.createElement('a');

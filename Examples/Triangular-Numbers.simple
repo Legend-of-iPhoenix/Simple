@@ -1,0 +1,38 @@
+//Change this to alter the size of your triangle:
+Create an Integer, n, with a starting value of 10.
+
+Create an Integer, i, with a starting value of 0.
+Create an Integer, j, with a starting value of 0.
+Create a String, printTriangle, with a starting value of " ".
+
+Until i >= (n-1):
+- Increment the value of i.
+- Append the character ' ' to the string stored in printTriangle.
+
+Set variable i to 0.
+
+Until i >= (n-1):
+- Increment the value of i.
+- Set variable j to j+i.
+- Remove the character at position 1 of the string stored in printTriangle.
+- Append the character '%' to the string stored in printTriangle.
+- Append the character '%' to the string stored in printTriangle.
+- Print the value of printTriangle to the console.
+
+Print the value of j to the console.
+
+#
+The output, when n is 10, should look like this:
+(Note that the number of percent signs shown by this program is twice the number shown on the bottom, because I wanted it to be symmetric.)
+
+         %%
+        %%%%
+       %%%%%%
+      %%%%%%%%
+     %%%%%%%%%%
+    %%%%%%%%%%%%
+   %%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%
+45
+#

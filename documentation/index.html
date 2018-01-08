@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Simple Documentation</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109579764-2"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-109579764-2');</script>
     <style>
     	* {
     		font-family: "Trebuchet MS", Helvetica, sans-serif;
@@ -13,12 +14,17 @@
     	body {
     		background-color: #eee;
     	}
-    	.code {
+    	pre {
     		background-color: #bbb;
     		font-family: "Lucida Console", Monaco, monospace;
     		font-size: 15px;
+        display: inline-block;
     	}
-    	li {
+      strong {
+        color: #000;
+        font-weight: bolder;
+      }
+    	li, p {
     		width: 75%;
     		margin-top: 20px;
     		margin-bottom: 20px;
@@ -42,42 +48,85 @@
     <br />
     <ul>
       <li>
-        <span class="code">Create a(n) [Integer|Boolean|Float|String], [variable name], with a starting value of [value].</span><br />
+        <pre>Create a(n) [Integer|Boolean|Float|String], [variable name], with a starting value of [value].</pre><br />
         <ul>
-          <li>This creates a variable, <span class="code">[variable name]</span>, which is a Boolean (True or False), Integer (whole numbers only), String (a list of characters/text), or Float (number with decimals). The value of the variable is in&nbsp;<span class="code">[value]</span>, which must be a value of the same type as the variable itself. (i.e. True if the variable is a Boolean, 5 if the variable is an Integer, "Hello" if the variable is a String, or 5.5 if the variable is a Float.)</li>
-          <li><span class="code">[value]</span> cannot be an expression. It must be a definite value.</li>
+          <li>This creates a variable, <pre>[variable name]</pre>, which is a Boolean (True or False), Integer (whole numbers only), String (a list of characters/text), or Float (number with decimals). The value of the variable is in&nbsp;<pre>[value]</pre>, which must be a value of the same type as the variable itself. (ex. True if the variable is a Boolean, 5 if the variable is an Integer, "Hello" if the variable is a String, or 5.5 if the variable is a Float.)</li>
+          <li><pre>[value]</pre> cannot be an expression. It must be a definite value.</li>
         </ul>
       </li>
       <li>
-        <span class="code">Set variable [variable] to [value].</span>
+        <pre>Set variable [variable] to [value].</pre>
         <ul>
-          <li>Sets the value stored in <span class="code">[variable]</span> to <span class="code">[value]</span>.</li>
+          <li>Sets the value stored in <pre>[variable]</pre> to <pre>[value]</pre>.</li>
           <li>This can be an expression that uses other variables and performs calculations.</li>
         </ul>
       </li>
       <li>
-        <span class="code"><span class="code">Print the value of [variable] to the console.</span></span>
+        <pre>Print the value of [variable] to the console.</pre>
         <ul>
-          <li>Does exactly what it says on the tin. It prints the value stored in <span class="code">[variable]</span> to the console.</li>
+          <li>Does exactly what it says on the tin. It prints the value stored in <pre>[variable]</pre> to the console.</li>
         </ul>
       </li>
       <li>
-        <span class="code">Increment the value of [variable].</span>
+        <pre>Increment the value of [variable].</pre>
         <ul>
-          <li>Adds one to the value of <span class="code">[variable]</span>.</li>
+          <li>Adds one to the value of <pre>[variable]</pre>.</li>
         </ul>
       </li>
       <li>
-        <span class="code">Decrement the value of [variable].</span>
+        <pre>Decrement the value of [variable].</pre>
         <ul>
-          <li>Subtracts one from the value of <span class="code">[variable]</span>.</li>
+          <li>Subtracts one from the value of <pre>[variable]</pre>.</li>
         </ul>
       </li>
       <li>
-      	<span class="code">Alert the user with the value of [variable].</span>
+      	<pre>Alert the user with the value of [variable].</pre>
       	<ul>
-      		<li>Sends an alert to the user with the contents of <span class="code">[variable]</span>.</li>
+      		<li>Sends an alert to the user with the contents of <pre>[variable]</pre>.</li>
       	</ul>
+      </li>
+      <li>
+        <pre>Until [condition]: <br>- [code]</pre>
+        <ul>
+          <li>Until <pre>[condition]</pre> is <pre>true</pre>, <pre>[code]</pre> will be executed. </li>
+          <li>Multiple lines of code in the loop are supported, but each line of code has to start with <pre>- </pre>, or it is outside the loop, and will be executed as such.</li>
+        </ul>
+      </li>
+      <li>
+        <pre>Append the character '[character]' to the string stored in [string variable]</pre>
+        <ul>
+          <li>Adds <pre>[character]</pre> to the <strong>end</strong> of the string stored in <pre>[string variable]</pre>.</li>
+          <li>Only one character can be added at a time.</li>
+        </ul>
+      </li>
+      <li>
+        <pre>Prepend the character '[character]' to the string stored in [string variable]</pre>
+        <ul>
+          <li>Adds <pre>[character]</pre> to the <strong>beginning</strong> of the string stored in <pre>[string variable]</pre>.</li>
+          <li>Only one character can be added at a time.</li>
+        </ul>
+      </li>
+      <li>
+        <pre>Remove the character at position [index] of the string stored in [string variable]</pre>
+        <ul>
+          <li>Removes the character found at <pre>[index]</pre> in the string specified in <pre>[string variable]</pre>.</li>
+          <li>Only one character can be removed at a time.</li>
+          <li>Note that the first position in the string is 1, the second is 2, the third 3, etc. In some languages (not this one), the first position is 0, the second is 1, the third 2, etc.</li>
+        </ul>
+      </li>
+      <li>
+        <p>Comments:</p>
+        <ul>
+          <li>Comments are entirely ignored by the interpreter. You can use them to explain your code, remove dysfunctional code, and more.</li>
+          <li><pre>//[comment]</pre> (single-line comment):</li>
+          <ul>
+            <li>When placed at the beginning of a line, the characters <pre>//</pre> mark that line as a comment.</li>
+          </ul>
+          <li><pre>#[comment]#</pre> (Multi-line comment):</li>
+          <ul>
+            <li>No matter how many lines of anything are between the two hash marks, it will all be ignored by the interpreter.</li>
+          </ul>
+        </ul>
       </li>
     </ul>
   </body>

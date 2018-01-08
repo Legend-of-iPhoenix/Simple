@@ -1,0 +1,18 @@
+Create an Integer, variable1, with a starting value of 10.
+Create an Integer, variable2, with a starting value of 0.
+
+Print the value of variable1 to the console.
+Increment the value of variable1.
+Print the value of variable1 to the console.
+Increment the value of variable2.
+Increment the value of variable2.
+
+Create a Float, hello, with a starting value of 0.
+Set variable hello to 1+variable1/variable2.
+
+Print the value of hello to the console.
+
+Decrement the value of variable2.
+Set variable hello to 1+variable1/variable2.
+
+Print the value of hello to the console.
