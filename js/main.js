@@ -321,6 +321,9 @@ function interpretCode() {
         }
       }
     }
+    if (line.trim() == "Clear the console.") {
+      console.clear();
+    }
     if (line.startsWith("//") || line.startsWith("#")) {
       //console.log("Comment Ignored");
     }
